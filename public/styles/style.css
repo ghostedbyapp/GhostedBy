@@ -1,0 +1,29 @@
+body {
+  background-color: #ffffff;
+}
+
+.footer-bg-color {
+  background-color: grey;
+  text-align: center;
+  padding: 15px;
+}
+
+#trending-report {
+  background-color: lightgrey;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+th, td {
+  color: black;
+  padding: 8px;
+}
+
+th {
+  color: blue;
+  font-size: 1.5rem;
+}
+
+a {
+  color: blue;
+}
