@@ -28,7 +28,6 @@ $(lookupButton).on("click", function (event) {
   var lookupCompany = {
     company_name: $("#lookup-company").val()
   };
-  console.log('lookupCompany', lookupCompany);
 
   $.ajax({
     method: "POST",

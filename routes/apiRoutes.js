@@ -55,8 +55,6 @@ module.exports = function (app) {
           }
         }).then(function (data) {
 
-          console.log(data)
-
           // Add company id with count
           db.ghostedCount.create({
             foreign_id: data[0].id,
@@ -64,7 +62,7 @@ module.exports = function (app) {
 
           }).then(function (data) {
 
-            res.json({ companyInfo: "Company has been added." });
+            res.json({ companyInfo: "Duplicated company, but added a ghosted count." });
           });
         });
 
@@ -88,7 +86,7 @@ module.exports = function (app) {
 
           }).then(function (data) {
 
-            res.json(data);
+            res.json({ companyInfo: "Company has been added." });
           });
         });
       }
