@@ -10,9 +10,6 @@ var div = $("#trending-report");
 
 $(reportButton).on("click", function (event) {
 
-  //collect info from the input element
-  //var reportInput = $("#report-company");
-
   $.ajax({
     method: "POST",
     url: "/api/report",
@@ -20,7 +17,8 @@ $(reportButton).on("click", function (event) {
   })
     .then(function (data) {
 
-      console.log("Return function to display the data", data)
+      // Company info has been added to that database
+      console.log(data)
     });
 });
 
@@ -40,7 +38,7 @@ $(lookupButton).on("click", function (event) {
     .then(function (data) {
 
       // Data is the company info
-      console.log('lookupButton data', data)
+      console.log(data)
     });
 });
 

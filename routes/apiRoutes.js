@@ -64,7 +64,7 @@ module.exports = function (app) {
 
           }).then(function (data) {
 
-            res.json(data);
+            res.json({ companyInfo: "Company has been added." });
           });
         });
 
