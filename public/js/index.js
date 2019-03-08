@@ -27,18 +27,20 @@ $(reportButton).on("click", function (event) {
 $(lookupButton).on("click", function (event) {
 
   //collect info from the input element
-  var lookupCompany = $("#lookup-company").val();
-
+  var lookupCompany = {
+    company_name: $("#lookup-company").val()
+  };
   console.log('lookupCompany', lookupCompany);
 
   $.ajax({
-    method: "GET",
+    method: "POST",
     url: "/api/lookup",
     data: lookupCompany
   })
     .then(function (data) {
-      
-      console.log(data)
+
+      // Data is the company info
+      console.log('lookupButton data', data)
     });
 });
 
@@ -65,7 +67,7 @@ function initAutocomplete() {
   autocompleteReport = new google.maps.places.Autocomplete(
     document.getElementById('report-company'), { types: ['establishment'] });
 
-    autocompleteLookup = new google.maps.places.Autocomplete(
+  autocompleteLookup = new google.maps.places.Autocomplete(
     document.getElementById('lookup-company'), { types: ['establishment'] });
 
   // Avoid paying for data that you don't need by restricting the set of
@@ -79,7 +81,7 @@ function initAutocomplete() {
   autocompleteLookup.addListener('place_changed', getCompanyLookupName);
 }
 
-function getCompanyReportedName(){
+function getCompanyReportedName() {
 
   var place = autocompleteReport.getPlace();
 
@@ -89,7 +91,7 @@ function getCompanyReportedName(){
   fillInAddress(place)
 }
 
-function getCompanyLookupName(){
+function getCompanyLookupName() {
 
   var place = autocompleteLookup.getPlace();
 
