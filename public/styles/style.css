@@ -12,7 +12,11 @@ body {
   background-color:#21897E;
    transition: ease-in-out, width .35s ease-in-out;
 }
+#index-banner{
+  margin-bottom: 8%;
+  margin-top: 1%;
 
+}
 
 #trending-report {
   background-color: lightgrey;
