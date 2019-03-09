@@ -12,7 +12,7 @@ app.get("/",function(req,res){
 
     console.log(req.body)
 
-    db.ghostedCompany.findAll({
+    db.Company.findAll({
       where: {
         company_name: req.body.company_name
       }
@@ -44,35 +44,34 @@ app.get("/",function(req,res){
   app.post("/api/report", function (req, res) {
 
 
-if(){
-  // POST new company and record if new
-}else if (true) {
-  // Post record only if exists
-}else {
-  // fail
-}
+// if(){
+//   // POST new company and record if new
+// }else if (true) {
+//   // Post record only if exists
+// }else {
+//   // fail
+// }
 
     // Check for duplate company name
-    db.ghostedCompany.findAll({
+    db.Company.findAll({
       where: {
         company_name: req.body.company_name
       }
     }).then(function (data) {
 
-      // If a company is a duplicate. Increment the ghostedCount by 1
+      // If a company is a duplicate. Increment the Records by 1
       if (data.length > 0) {
 
         // Retreive the ghosted count id
-        db.ghostedCount.findAll({
+        db.Records.findAll({
           where: {
-            foreign_id: data[0].id
+            CompanyId: data[0].id
           }
         }).then(function (data) {
-
+          console.log("DATA: " + data[0].id)
           // Add company id with count
-          db.ghostedCount.create({
-            foreign_id: data[0].id,
-            ghosted_count: 1
+          db.Records.create({
+            CompanyId: data[0].id,
 
           }).then(function (data) {
 
@@ -84,7 +83,7 @@ if(){
       } else {
 
         // Add company info
-        db.ghostedCompany.create({
+        db.Company.create({
           company_name: req.body.company_name,
           company_address: req.body.street_number + " " + req.body.route,
           company_city: req.body.locality,
@@ -94,8 +93,8 @@ if(){
         }).then(function (data) {
 
           // Add company id with count
-          db.ghostedCount.create({
-            foreign_id: data.id,
+          db.Records.create({
+            CompanyId: data.id,
             ghosted_count: 1
 
           }).then(function (data) {

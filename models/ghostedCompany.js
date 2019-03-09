@@ -1,6 +1,12 @@
 module.exports = function (sequelize, DataTypes) {
-  var ghostedCompany = sequelize.define("ghostedCompany", {
-    company_name: DataTypes.STRING,
+  var Company = sequelize.define("Company", {
+    company_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [1]
+      }
+    },
     company_address: DataTypes.STRING,
     // company_address_2: DataTypes.STRING,
     company_city: DataTypes.STRING,
@@ -9,7 +15,11 @@ module.exports = function (sequelize, DataTypes) {
     logo: DataTypes.STRING
     // ghosted_count: DataTypes.INTEGER
   });
-  return ghostedCompany;
+
+  Company.associate = function(models) {
+    Company.hasMany(models.Records)
+  }
+  return Company;
 };
 
 // --   `id` Int( 11 ) AUTO_INCREMENT NOT NULL,

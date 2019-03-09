@@ -16,9 +16,10 @@ module.exports = function (sequelize, DataTypes) {
 
 
 
-    var ghostedCount = sequelize.define("ghostedCount", {
-        foreign_id: DataTypes.INTEGER,
-        ghosted_count: DataTypes.INTEGER
+    var Records = sequelize.define("Records", {
     });
-    return ghostedCount;
+    Records.associate = function(models) {
+      Records.belongsTo(models.Company)
+    }
+    return Records;
   };
