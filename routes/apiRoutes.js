@@ -2,6 +2,11 @@ var db = require("../models");
 
 module.exports = function (app) {
 
+
+app.get("/",function(req,res){
+  // Collect top 5 companies
+});
+
   // Look up company
   app.post("/api/lookup", function (req, res) {
 
@@ -37,6 +42,15 @@ module.exports = function (app) {
 
   // Create a new example
   app.post("/api/report", function (req, res) {
+
+
+if(){
+  // POST new company and record if new
+}else if (true) {
+  // Post record only if exists
+}else {
+  // fail
+}
 
     // Check for duplate company name
     db.ghostedCompany.findAll({
