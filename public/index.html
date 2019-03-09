@@ -53,8 +53,20 @@
         </div>
         <div class="card-action">
           <input id="lookup-company" placeholder="Enter company name" type="text" class="validate">
-          <a class="waves-effect waves-light btn" id="lookup-btn">Lookup a Company</a>
+          <a href="#resultModal" class="modal-trigger waves-effect waves-light btn" id="lookup-btn">Lookup a Company</a>
         </div>
+      </div>
+    </div>
+
+    <!-- Handlebars modal to show search results -->
+    <div id="resultModal" class="modal blue-grey darken-1">
+      <div class="modal-content white-text">
+        <!-- handlebars scripts -->
+        <script id="companyInfo" type="text/x-handlebars-template">
+          <h3>{{company_name}}</h3>
+          <p>{{timesReported}}</p>
+        </script>
+        <a class="waves-effect waves-light btn" id="report-btn">Report this company</a>
       </div>
     </div>
   </div>
@@ -94,6 +106,7 @@
   <!-- <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script> -->
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="./js/index.js"></script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbyk8K108Ko9KQlMx7jtjPmga2wn0IpJs&libraries=places&callback=initAutocomplete"

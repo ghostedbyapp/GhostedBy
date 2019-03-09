@@ -8,6 +8,10 @@ var lookupButton = $("#lookup-btn");
 // Contents of top five end up in here
 var div = $("#trending-report");
 
+$(document).ready(function(){
+  $('.modal').modal();
+});
+
 $(reportButton).on("click", function (event) {
 
   $.ajax({
