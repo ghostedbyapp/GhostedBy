@@ -8,12 +8,33 @@ var lookupButton = $("#lookup-btn");
 // Contents of top five end up in here
 var div = $("#trending-report");
 
-var template = $("#companyInfo").html()
-var templateScript = Handlebars.compile(template)
-
+// This wrapper initializes the modal
 $(document).ready(function(){
-  $('.modal').modal();
+  $('.modal').modal({
+    // Declaring a function to run before the modal opens
+    onOpenStart: function() {
+      var lookupCompany = {
+        company_name: $("#lookup-company").val()
+      };
+      $.ajax({
+        method: "POST",
+        url: "/api/lookup",
+        data: lookupCompany
+      })
+      .then(function (data) {
+        
+        $("#companyName").append(data.company_name)
+        console.log(data)
+      });
+    }
+  });
 });
+
+// document.addEventListener('DOMContentLoaded', function() {
+//   var elems = document.querySelectorAll('.modal');
+//   var instances = M.Modal.init(elems);
+//   instances.open()
+// });
 
 $(reportButton).on("click", function (event) {
 
@@ -29,23 +50,22 @@ $(reportButton).on("click", function (event) {
     });
 });
 
-$(lookupButton).on("click", function (event) {
+// $(lookupButton).on("click", function (event) {
+//   //collect info from the input element
+//   var lookupCompany = {
+//     company_name: $("#lookup-company").val()
+//   };
 
-  //collect info from the input element
-  var lookupCompany = {
-    company_name: $("#lookup-company").val()
-  };
-
-  $.ajax({
-    method: "POST",
-    url: "/api/lookup",
-    data: lookupCompany
-  })
-    .then(function (data) {
-      // Data is the company info
-      console.log(data)
-    });
-});
+//   $.ajax({
+//     method: "POST",
+//     url: "/api/lookup",
+//     data: lookupCompany
+//   })
+//     .then(function (data) {
+//       // Data is the company info
+//       console.log(data)
+//     });
+// });
 
 
 var autocompleteReport;
