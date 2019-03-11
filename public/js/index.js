@@ -8,6 +8,9 @@ var lookupButton = $("#lookup-btn");
 // Contents of top five end up in here
 var div = $("#trending-report");
 
+var template = $("#companyInfo").html()
+var templateScript = Handlebars.compile(template)
+
 $(document).ready(function(){
   $('.modal').modal();
 });
@@ -39,7 +42,6 @@ $(lookupButton).on("click", function (event) {
     data: lookupCompany
   })
     .then(function (data) {
-
       // Data is the company info
       console.log(data)
     });

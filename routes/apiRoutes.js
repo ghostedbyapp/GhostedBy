@@ -2,11 +2,13 @@ var db = require("../models");
 
 module.exports = function (app) {
 
+  app.get("/api/lookup", function(req, res) {
+    
+  })
+
   // Look up company
   app.post("/api/lookup", function (req, res) {
-
-    console.log(req.body)
-
+    
     db.ghostedCompany.findAll({
       where: {
         company_name: req.body.company_name
@@ -17,7 +19,7 @@ module.exports = function (app) {
       if (data.length > 0) {
 
         companyInfo = {
-          id: data[0].company_name,
+          // id: data[0].company_name,
           company_name: data[0].company_name,
           company_address: data[0].company_address,
           company_city: data[0].company_city,
@@ -30,7 +32,10 @@ module.exports = function (app) {
 
       // No company in the database
       else {
-        res.send({ companyInfo: "Not in the database" });
+
+        res.send({
+          company_name: req.body.company_name
+        });
       }
     });
   });
