@@ -22,51 +22,43 @@ $(document).ready(function(){
         data: lookupCompany
       })
       .then(function (data) {
-        
         $("#companyName").append(data.company_name)
+
+        // If there is no data for the ghosted count, the modal displays a generic message
+        if (!data.ghosted_count) {
+          $("#timesReported").append("This company has not been reported yet.")
+        
+        // If there is data on the company, the modal will display the number of times this comoany has been reported
+        } else {
+          $("#timesReported").append("Ghosted " + data.ghosted_count + " people")
+        }
+        
         console.log(data)
       });
+    },
+    onCloseEnd: function() {
+      $("#companyName").empty();
+      $("#timesReported").empty();
+      $("#lookup-company").val("");
     }
   });
 });
 
-// document.addEventListener('DOMContentLoaded', function() {
-//   var elems = document.querySelectorAll('.modal');
-//   var instances = M.Modal.init(elems);
-//   instances.open()
-// });
-
-$(reportButton).on("click", function (event) {
-
+function reportCompany(company) {
   $.ajax({
     method: "POST",
     url: "/api/report",
-    data: companyResult
+    data: company
   })
-    .then(function (data) {
-
-      // Company info has been added to that database
-      console.log(data)
+    .then(function () {
+      console.log("Company has been reported")
     });
+}
+
+$(reportButton).on("click", function() {
+  reportCompany(companyResult);
+  $("#report-company").val("");
 });
-
-// $(lookupButton).on("click", function (event) {
-//   //collect info from the input element
-//   var lookupCompany = {
-//     company_name: $("#lookup-company").val()
-//   };
-
-//   $.ajax({
-//     method: "POST",
-//     url: "/api/lookup",
-//     data: lookupCompany
-//   })
-//     .then(function (data) {
-//       // Data is the company info
-//       console.log(data)
-//     });
-// });
-
 
 var autocompleteReport;
 var autocompleteLookup;

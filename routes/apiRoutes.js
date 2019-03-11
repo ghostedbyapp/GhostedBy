@@ -34,7 +34,8 @@ module.exports = function (app) {
       else {
 
         res.send({
-          company_name: req.body.company_name
+          company_name: req.body.company_name,
+          // ghosted_count: "This company is has not been reported yet."
         });
       }
     });
