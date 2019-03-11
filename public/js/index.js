@@ -17,6 +17,9 @@ $(reportButton).on("click", function (event) {
   })
     .then(function (data) {
 
+      // Clear textfield
+      $("#report-company").val('');
+
       // Company info has been added to that database
       console.log(data)
     });
@@ -35,6 +38,9 @@ $(lookupButton).on("click", function (event) {
     data: lookupCompany
   })
     .then(function (data) {
+
+      // Clear teetfield
+      $("#lookup-company").val('');
 
       // Data is the company info
       console.log(data)
