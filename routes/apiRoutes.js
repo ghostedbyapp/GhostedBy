@@ -44,14 +44,6 @@ app.get("/",function(req,res){
   app.post("/api/report", function (req, res) {
 
 
-if(){
-  // POST new company and record if new
-}else if (true) {
-  // Post record only if exists
-}else {
-  // fail
-}
-
     // Check for duplate company name
     db.ghostedCompany.findAll({
       where: {
