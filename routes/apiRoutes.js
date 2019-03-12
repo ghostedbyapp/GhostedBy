@@ -1,5 +1,7 @@
-var db = require("../models");
+var sequelize = require('sequelize' );
+var { Op } = require('sequelize');
 var moment = require('moment');
+var db = require("../models");
 
 module.exports = function (app) {
 
@@ -32,8 +34,9 @@ module.exports = function (app) {
       // No company in the database
       else {
         res.send(
-          { companyInfo: "Not in the database" 
-        });
+          {
+            companyInfo: "Not in the database"
+          });
       }
     });
   });
@@ -98,4 +101,103 @@ module.exports = function (app) {
       }
     });
   });
+
+
+  // Load lifetime
+  app.post("/api/lifetime", function (req, res) {
+
+    db.ghostedCompany.findAll({
+
+      attributes: ['company_name'],
+      include: [
+        {
+          model: db.ghostedCount,
+          attributes: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'count']],
+          duplicating: false,
+        },
+      ],
+      raw: true,
+      group: ['company_name'],
+      order: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'DESC']],
+      limit: 10
+
+    }).then(function (data) {
+      console.log(data)
+
+      // Render needs to be used here for handlebars
+      res.json(data);
+    });
+  });
+
+  // Load last 7 days
+  app.post("/api/last7days", function (req, res) {
+
+    db.ghostedCompany.findAll({
+
+      attributes: ['company_name'],
+      include: [
+        {
+          model: db.ghostedCount,
+          // Used to get range in database
+          // where: {
+          //   entry_date: {
+          //     $between: [from_date, to_date]
+          //   },
+
+          // Used to get last 7 days
+            where: {
+              entry_date: {
+                [Op.gte]: moment().subtract(7, 'days').toDate()
+              },
+            },
+            attributes: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'count']],
+            duplicating: false,
+          },
+      ],
+      raw: true,
+      group: ['company_name'],
+      order: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'DESC']],
+      limit: 10
+
+    }).then(function (data) {
+      console.log(data)
+
+      // Render needs to be used here for handlebars
+      res.json(data);
+    });
+  });
+
+  // Load last 30 days
+  app.post("/api/last30days", function (req, res) {
+
+    db.ghostedCompany.findAll({
+
+      attributes: ['company_name'],
+      include: [
+        {
+          model: db.ghostedCount,
+
+          where: {
+            entry_date: {
+              //[Op.gte]: moment().subtract(7, 'days').toDate(),
+              [Op.gte]: moment().subtract(1, 'months').toDate(),
+            },
+          },
+          attributes: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'count']],
+          duplicating: false,
+        },
+      ],
+      raw: true,
+      group: ['company_name'],
+      order: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'DESC']],
+      limit: 10
+
+    }).then(function (data) {
+      console.log(data)
+
+      // Render needs to be used here for handlebars
+      res.json(data);
+    });
+  });
+
 };

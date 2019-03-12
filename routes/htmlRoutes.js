@@ -1,4 +1,4 @@
-var sequelize = require('sequelize');
+var sequelize = require('sequelize' );
 const { Op } = require('sequelize')
 var moment = require('moment');
 var db = require("../models");
@@ -35,7 +35,7 @@ module.exports = function (app) {
 
   // Load Between Dates for current week: Sunday - Saturday
   app.get("/currentweek", function (req, res) {
-
+1
   // Used to get data range in current week
   //const from_date = moment().startOf('week').toDate();
   //const to_date = moment().endOf('week').toDate();
