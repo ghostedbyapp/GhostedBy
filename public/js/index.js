@@ -22,7 +22,8 @@ $(document).ready(function(){
         data: lookupCompany
       })
       .then(function (data) {
-        $("#companyName").append(data.company_name)
+        var company = data.company_name;
+        $("#companyName").append(company)
 
         // If there is no data for the ghosted count, the modal displays a generic message
         if (!data.ghosted_count) {
@@ -32,9 +33,8 @@ $(document).ready(function(){
         } else {
           $("#timesReported").append("Ghosted " + data.ghosted_count + " people")
         }
-        
-        console.log(data)
       });
+
     },
     onCloseEnd: function() {
       $("#companyName").empty();
@@ -50,8 +50,8 @@ function reportCompany(company) {
     url: "/api/report",
     data: company
   })
-    .then(function () {
-      console.log("Company has been reported")
+    .then(function (data) {
+      console.log(data)
     });
 }
 

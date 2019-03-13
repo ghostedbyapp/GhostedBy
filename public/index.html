@@ -40,8 +40,21 @@
         </div>
         <div class="card-action">
           <input id="report-company" placeholder="Enter company name" type="text" class="validate">
-          <a class="waves-effect waves-light btn" id="report-btn">Report a Company</a>
+          <a href="#reportModal" class="waves-effect waves-light btn modal-trigger" id="report-btn">Report a Company</a>
         </div>
+      </div>
+    </div>
+
+    <!-- Modal for confirming a successful report -->
+    <div id="reportModal" class="modal blue-grey darken-1">
+      <div class="modal-content white-text">
+        <h4>
+          <span id="reportedCompany"></span>
+          has been added to our database.
+        </h4>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
       </div>
     </div>
 
@@ -59,14 +72,14 @@
       </div>
     </div>
 
-    <!-- Handlebars modal to show search results -->
+    <!--Modal to show search results -->
     <div id="resultModal" class="modal blue-grey darken-1">
       <div class="modal-content white-text">
         <h4 id="companyName"></h4>
         <p id="timesReported"></p>
       </div>
       <div class="modal-footer">
-        <a class="waves-effect waves-light btn left" id="report-btn">Report this company</a>
+        <a class="waves-effect waves-light btn left" id="report-searched">Report this company</a>
         <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
       </div>
     </div>

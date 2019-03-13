@@ -8,7 +8,8 @@ module.exports = function (app) {
 
   // Look up company
   app.post("/api/lookup", function (req, res) {
-    
+
+    res.json(req.body)
     db.ghostedCompany.findAll({
       where: {
         company_name: req.body.company_name
@@ -27,16 +28,22 @@ module.exports = function (app) {
           company_zipcode: data[0].company_zipcode
         }
 
-        res.json(companyInfo);
+        res.send(companyInfo);
       }
 
       // No company in the database
       else {
-
-        res.send({
+        companyInfo = {
           company_name: req.body.company_name,
-          // ghosted_count: "This company is has not been reported yet."
-        });
+          company_address: req.body.street_number + " " + req.body.route,
+          company_city: req.body.locality,
+          company_state: req.body.administrative_area_level_1,
+          company_zipcode: req.body.postal_code
+        }
+        // res.json(req.body)
+        // res.send({
+          
+        // });
       }
     });
   });
@@ -92,7 +99,7 @@ module.exports = function (app) {
 
           }).then(function (data) {
 
-            res.json({ companyInfo: "Company has been added." });
+            res.send(data);
           });
         });
       }
