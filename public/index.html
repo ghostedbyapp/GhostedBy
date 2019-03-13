@@ -11,6 +11,7 @@
   <!-- css reset -->
   <link rel=“stylesheet” href="./styles/reset.css">
   <!-- materialize -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <!-- css formatting -->
@@ -39,8 +40,21 @@
         </div>
         <div class="card-action">
           <input id="report-company" placeholder="Enter company name" type="text" class="validate">
-          <a class="waves-effect waves-light btn" id="report-btn">Report a Company</a>
+          <a href="#reportModal" class="waves-effect waves-light btn modal-trigger" id="report-btn">Report a Company</a>
         </div>
+      </div>
+    </div>
+
+    <!-- Modal for confirming a successful report -->
+    <div id="reportModal" class="modal blue-grey darken-1">
+      <div class="modal-content white-text">
+        <h4>
+          <span id="reportedCompany"></span>
+          has been added to our database.
+        </h4>
+      </div>
+      <div class="modal-footer">
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
       </div>
     </div>
 
@@ -53,8 +67,20 @@
         </div>
         <div class="card-action">
           <input id="lookup-company" placeholder="Enter company name" type="text" class="validate">
-          <a class="waves-effect waves-light btn" id="lookup-btn">Lookup a Company</a>
+          <a href="#resultModal" class="modal-trigger waves-effect waves-light btn" id="lookup-btn">Lookup a Company</a>
         </div>
+      </div>
+    </div>
+
+    <!--Modal to show search results -->
+    <div id="resultModal" class="modal blue-grey darken-1">
+      <div class="modal-content white-text">
+        <h4 id="companyName"></h4>
+        <p id="timesReported"></p>
+      </div>
+      <div class="modal-footer">
+        <a class="waves-effect waves-light btn left" id="report-searched">Report this company</a>
+        <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
       </div>
     </div>
   </div>
@@ -92,12 +118,15 @@
 
   <!-- cdn's -->
   <!-- <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script> -->
+
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
     crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="./js/index.js"></script>
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbyk8K108Ko9KQlMx7jtjPmga2wn0IpJs&libraries=places&callback=initAutocomplete"
   async defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
 
 </body>
 
