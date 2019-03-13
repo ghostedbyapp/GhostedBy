@@ -12,6 +12,8 @@ var div = $("#trending-report");
 $(document).ready(function(){
   $('.modal').modal({
     // Declaring a function to run before the modal opens
+
+    // lookup button
     onOpenStart: function() {
       var lookupCompany = {
         company_name: $("#lookup-company").val()
@@ -22,17 +24,28 @@ $(document).ready(function(){
         data: lookupCompany
       })
       .then(function (data) {
-        var company = data.company_name;
+        console.log(data);
+        var company = lookupCompany.company_name;
         $("#companyName").append(company)
 
-        // If there is no data for the ghosted count, the modal displays a generic message
-        if (!data.ghosted_count) {
-          $("#timesReported").append("This company has not been reported yet.")
+        if (data.found == true) {
+          $.ajax({
+            method: "GET",
+            url: "/api/ghostedCount/" + data.info.company_id
+          }).then(function(count) {
+            $("#timesReported").append("This company has been reported " + count[0].ghostedCounts[0].count + " time(s).")
+          })
+        }
+        
+
+        // // If there is no data for the ghosted count, the modal displays a generic message
+        // if (!data.ghosted_count) {
+        //   $("#timesReported").append("This company has not been reported yet.")
         
         // If there is data on the company, the modal will display the number of times this comoany has been reported
-        } else {
-          $("#timesReported").append("Ghosted " + data.ghosted_count + " people")
-        }
+        // } else {
+        //   $("#timesReported").append("Ghosted " + data.ghosted_count + " people")
+        // }
       });
 
     },
@@ -56,12 +69,7 @@ function reportCompany(company) {
       console.log(data)
     });
 }
-
-      // Clear teetfield
-      $("#lookup-company").val('');
-      // Data is the company info
-      console.log(data)
-    });
+   
 $(reportButton).on("click", function() {
   reportCompany(companyResult);
   $("#report-company").val("");
@@ -86,20 +94,20 @@ function initAutocomplete() {
   console.log("initAutocomplete()")
 
   // Create the autocomplete object
-  autocompleteReport = new google.maps.places.Autocomplete(
-    document.getElementById('report-company'), { types: ['establishment'] });
+  // autocompleteReport = new google.maps.places.Autocomplete(
+  //   document.getElementById('report-company'), { types: ['establishment'] });
 
   autocompleteLookup = new google.maps.places.Autocomplete(
     document.getElementById('lookup-company'), { types: ['establishment'] });
 
   // Avoid paying for data that you don't need by restricting the set of
   // place fields that are returned to just the address components.
-  autocompleteReport.setFields('address_components');
+  // autocompleteReport.setFields('address_components');
   autocompleteLookup.setFields('address_components');
 
   // When the user selects an address from the drop-down, populate the
   // address fields in the form.
-  autocompleteReport.addListener('place_changed', getCompanyReportedName);
+  // autocompleteReport.addListener('place_changed', getCompanyReportedName);
   autocompleteLookup.addListener('place_changed', getCompanyLookupName);
 }
 
