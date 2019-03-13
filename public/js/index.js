@@ -51,10 +51,17 @@ function reportCompany(company) {
     data: company
   })
     .then(function (data) {
+      // Clear textfield
+      $("#report-company").val('');
       console.log(data)
     });
 }
 
+      // Clear teetfield
+      $("#lookup-company").val('');
+      // Data is the company info
+      console.log(data)
+    });
 $(reportButton).on("click", function() {
   reportCompany(companyResult);
   $("#report-company").val("");
