@@ -33,22 +33,22 @@ module.exports = function (app) {
       }
 
       // No company in the database
-      // else {
-      //   companyInfo = {
-      //     info: {
-      //       company_name: data[0].company_name,
-      //       company_address: data[0].company_address,
-      //       company_city: data[0].company_city,
-      //       company_state: data[0].company_state,
-      //       company_zipcode: data[0].company_zipcode,
-      //     },
-      //     found: true
-      //   }
-      //   res.json(companyInfo);
-      //   // res.json(req.body)
-      //   // res.send({
-      // }
-      //   // });
+      else {
+        companyInfo = {
+          info: {
+            company_name: req.body.company_name,
+            company_address: req.body.company_address,
+            company_city: req.body.company_city,
+            company_state: req.body.company_state,
+            company_zipcode: req.body.company_zipcode,
+          },
+          found: false
+        }
+        res.json(companyInfo);
+        // res.json(req.body)
+        // res.send({
+      }
+        // });
     });
   });
 

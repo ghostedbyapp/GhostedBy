@@ -15,19 +15,18 @@ $(document).ready(function(){
 
     // lookup button
     onOpenStart: function() {
-      var lookupCompany = {
-        company_name: $("#lookup-company").val()
-      };
       $.ajax({
         method: "POST",
         url: "/api/lookup",
-        data: lookupCompany
+        data: companyResult
       })
       .then(function (data) {
         console.log(data);
-        var company = lookupCompany.company_name;
+        var company = $("#lookup-company").val()
         $("#companyName").append(company)
 
+        // If the company is found in the database, we perform an ajax call to get the total number of times
+        // the company has been reported, and display this in the modal.
         if (data.found == true) {
           $.ajax({
             method: "GET",
@@ -35,17 +34,11 @@ $(document).ready(function(){
           }).then(function(count) {
             $("#timesReported").append("This company has been reported " + count[0].ghostedCounts[0].count + " time(s).")
           })
-        }
-        
 
-        // // If there is no data for the ghosted count, the modal displays a generic message
-        // if (!data.ghosted_count) {
-        //   $("#timesReported").append("This company has not been reported yet.")
-        
-        // If there is data on the company, the modal will display the number of times this comoany has been reported
-        // } else {
-        //   $("#timesReported").append("Ghosted " + data.ghosted_count + " people")
-        // }
+          // If the company is not in the database, we display a generic message.
+        } else {
+          $("#timesReported").append("This company has not yet been reported.")
+        }
       });
 
     },
