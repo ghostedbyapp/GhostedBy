@@ -39,6 +39,9 @@ $(document).ready(function(){
         } else {
           $("#timesReported").append("This company has not yet been reported.")
         }
+        // $("#report-searched").click(function() {
+        //   reportCompany(companyResult)
+        // })
       });
 
     },
@@ -63,7 +66,7 @@ function reportCompany(company) {
     });
 }
    
-$(reportButton).on("click", function() {
+$("#report-searched").on("click", function() {
   reportCompany(companyResult);
   $("#report-company").val("");
 });
