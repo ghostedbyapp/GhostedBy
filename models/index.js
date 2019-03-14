@@ -39,4 +39,8 @@ Object.keys(db).forEach(function(modelName) {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+// Need to be added to show relationship between 2 tables and give the belongsTo a Foreign key
+db.ghostedCompany.hasMany(db.ghostedCount)
+db.ghostedCount.belongsTo(db.ghostedCompany)
+
 module.exports = db;
