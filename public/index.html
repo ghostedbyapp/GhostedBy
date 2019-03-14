@@ -92,9 +92,22 @@
 
   <!-- trending report div -->
   <div class="container">
-    <div class="row" id="trending-report">
-      <div class="col l12 s4">
-        <h5>Trending GhostedBy Companies Report Here</h5>
+    <div class="row">
+      <div class="col l12 s4" id="trending-report">
+        <table class="highlight responsive-table">
+          <thead>
+            <tr>
+              <a class="waves-effect waves-light btn" id="lifetime">Total</a>
+              <a class="waves-effect waves-light btn" id="30day">30 Days</a>
+              <a class="waves-effect waves-light btn" id="7day">7 Days</a>
+              <th>Company</th>
+              <th id="timeframe"></th>
+            </tr>
+          </thead>
+          <tbody id="report-display">
+
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

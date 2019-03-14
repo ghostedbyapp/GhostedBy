@@ -8,7 +8,7 @@ var lookupButton = $("#lookup-btn");
 // Contents of top five end up in here
 var div = $("#trending-report");
 
-// This wrapper initializes the modal
+
 $(document).ready(function(){
   $('.modal').modal({
     // Declaring a function to run before the modal opens
@@ -31,6 +31,7 @@ $(document).ready(function(){
             method: "GET",
             url: "/api/ghostedCount/" + data.info.company_id
           }).then(function(count) {
+            console.log(count[0]);
             $("#timesReported").append("This company has been reported " + count[0].ghostedCounts[0].count + " time(s).")
           })
 
@@ -43,14 +44,60 @@ $(document).ready(function(){
         // })
       });
     },
-
     onCloseEnd: function() {
       $("#companyName").empty();
       $("#timesReported").empty();
       $("#lookup-company").val("");
     }
   });
+
+  getLifetimeReport()
 });
+
+function getLifetimeReport() {
+  $.ajax({
+    method: "POST",
+    url: "/api/lifetime"
+  })
+  .then(function(data) {
+    $("#timeframe").text("Total reports")
+    displayReport(data);
+  })
+}
+
+function get30DayReport() {
+  $.ajax({
+    method: "POST",
+    url: "/api/last30days"
+  })
+  .then(function(data) {
+    $("#timeframe").text("Reports in the last 30 days")
+    displayReport(data);
+  })
+}
+
+function get7DayReport() {
+  $.ajax({
+    method: "POST",
+    url: "/api/last7days"
+  })
+  .then(function(data) {
+    $("#timeframe").text("Reports in the last 7 days")
+    displayReport(data);
+  })
+}
+
+function displayReport(report) {
+  $("#report-display").empty();
+  for (var i in report) {
+    var newCompany = $("<tr>");
+    var companyName = $("<td>").text(report[i].company_name);
+    var count = $("<td>").text(report[i].ghostedCounts[0].count)
+    newCompany.append(companyName);
+    newCompany.append(count);
+    $("#report-display").append(newCompany);
+  }
+}
 
 function reportCompany(company) {
   $.ajax({
@@ -61,9 +108,13 @@ function reportCompany(company) {
     .then(function (data) {
       // Clear textfield
       $("#report-company").val('');
-      console.log(data)
     });
 }
+
+// Event listeners that allow user to swich information being displayed
+$("#lifetime").on("click", getLifetimeReport);
+$("#30day").on("click", get30DayReport);
+$("#7day").on("click", get7DayReport);
    
 $("#report-searched").on("click", function() {
   reportCompany(companyResult);

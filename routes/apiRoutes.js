@@ -12,7 +12,6 @@ app.get("/",function(req,res){
 
   // Look up company
   app.post("/api/lookup", function (req, res) {
-    console.log(req.body)
     db.ghostedCompany.findAll({
       where: {
         company_name: req.body.company_name
@@ -136,6 +135,7 @@ app.get("/",function(req,res){
         }
     })
     .then(function(data) {
+      console.log(data)
       res.json(data);
     })
   })
@@ -153,7 +153,7 @@ app.get("/",function(req,res){
           duplicating: false,
         },
       ],
-      raw: true,
+      // raw: true,
       group: ['company_name'],
       order: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'DESC']],
       limit: 10
@@ -191,14 +191,12 @@ app.get("/",function(req,res){
             duplicating: false,
           },
       ],
-      raw: true,
+      // raw: true,
       group: ['company_name'],
       order: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'DESC']],
       limit: 10
 
     }).then(function (data) {
-      console.log(data)
-
       // Render needs to be used here for handlebars
       res.json(data);
     });
@@ -224,14 +222,12 @@ app.get("/",function(req,res){
           duplicating: false,
         },
       ],
-      raw: true,
+      // raw: true,
       group: ['company_name'],
       order: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'DESC']],
       limit: 10
 
     }).then(function (data) {
-      console.log(data)
-
       // Render needs to be used here for handlebars
       res.json(data);
     });
