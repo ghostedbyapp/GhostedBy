@@ -12,9 +12,8 @@ var div = $("#trending-report");
 $(document).ready(function(){
   $('.modal').modal({
     // Declaring a function to run before the modal opens
-
-    // lookup button
     onOpenStart: function() {
+      $("#report-searched").show();
       $.ajax({
         method: "POST",
         url: "/api/lookup",
@@ -43,8 +42,8 @@ $(document).ready(function(){
         //   reportCompany(companyResult)
         // })
       });
-
     },
+
     onCloseEnd: function() {
       $("#companyName").empty();
       $("#timesReported").empty();
@@ -68,7 +67,9 @@ function reportCompany(company) {
    
 $("#report-searched").on("click", function() {
   reportCompany(companyResult);
-  $("#report-company").val("");
+  $("#report-searched").hide();
+  $("#timesReported").empty();
+  $("#timesReported").append("Company succesfully reported. Click close to continue searching.");
 });
 
 var autocompleteReport;
