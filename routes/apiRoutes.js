@@ -59,12 +59,7 @@ app.get("/",function(req,res){
 
   // Create a new example
   app.post("/api/report", function (req, res) {
-<<<<<<< HEAD
     console.log(req.body)
-=======
-
-
->>>>>>> master
     // Check for duplate company name
     db.ghostedCompany.findAll({
       where: {
