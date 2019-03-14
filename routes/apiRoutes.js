@@ -5,6 +5,11 @@ var db = require("../models");
 
 module.exports = function (app) {
 
+
+app.get("/",function(req,res){
+  // Collect top 5 companies
+});
+
   // Look up company
   app.post("/api/lookup", function (req, res) {
     console.log(req.body)
@@ -54,7 +59,12 @@ module.exports = function (app) {
 
   // Create a new example
   app.post("/api/report", function (req, res) {
+<<<<<<< HEAD
     console.log(req.body)
+=======
+
+
+>>>>>>> master
     // Check for duplate company name
     db.ghostedCompany.findAll({
       where: {
