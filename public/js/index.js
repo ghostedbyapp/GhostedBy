@@ -8,39 +8,69 @@ var lookupButton = $("#lookup-btn");
 // Contents of top five end up in here
 var div = $("#trending-report");
 
-$(reportButton).on("click", function (event) {
+// This wrapper initializes the modal
+$(document).ready(function(){
+  $('.modal').modal({
+    // Declaring a function to run before the modal opens
+    onOpenStart: function() {
+      $("#report-searched").show();
+      $.ajax({
+        method: "POST",
+        url: "/api/lookup",
+        data: companyResult
+      })
+      .then(function (data) {
+        console.log(data);
+        var company = $("#lookup-company").val()
+        $("#companyName").append(company)
 
+        // If the company is found in the database, we perform an ajax call to get the total number of times
+        // the company has been reported, and display this in the modal.
+        if (data.found == true) {
+          $.ajax({
+            method: "GET",
+            url: "/api/ghostedCount/" + data.info.company_id
+          }).then(function(count) {
+            $("#timesReported").append("This company has been reported " + count[0].ghostedCounts[0].count + " time(s).")
+          })
+
+          // If the company is not in the database, we display a generic message.
+        } else {
+          $("#timesReported").append("This company has not yet been reported.")
+        }
+        // $("#report-searched").click(function() {
+        //   reportCompany(companyResult)
+        // })
+      });
+    },
+
+    onCloseEnd: function() {
+      $("#companyName").empty();
+      $("#timesReported").empty();
+      $("#lookup-company").val("");
+    }
+  });
+});
+
+function reportCompany(company) {
   $.ajax({
     method: "POST",
     url: "/api/report",
-    data: companyResult
+    data: company
   })
     .then(function (data) {
-
-      // Company info has been added to that database
+      // Clear textfield
+      $("#report-company").val('');
       console.log(data)
     });
+}
+   
+$("#report-searched").on("click", function() {
+  reportCompany(companyResult);
+  $("#report-searched").hide();
+  $("#timesReported").empty();
+  $("#timesReported").append("Company succesfully reported. Click close to continue searching.");
 });
-
-$(lookupButton).on("click", function (event) {
-
-  //collect info from the input element
-  var lookupCompany = {
-    company_name: $("#lookup-company").val()
-  };
-
-  $.ajax({
-    method: "POST",
-    url: "/api/lookup",
-    data: lookupCompany
-  })
-    .then(function (data) {
-
-      // Data is the company info
-      console.log(data)
-    });
-});
-
 
 var autocompleteReport;
 var autocompleteLookup;
@@ -61,20 +91,20 @@ function initAutocomplete() {
   console.log("initAutocomplete()")
 
   // Create the autocomplete object
-  autocompleteReport = new google.maps.places.Autocomplete(
-    document.getElementById('report-company'), { types: ['establishment'] });
+  // autocompleteReport = new google.maps.places.Autocomplete(
+  //   document.getElementById('report-company'), { types: ['establishment'] });
 
   autocompleteLookup = new google.maps.places.Autocomplete(
     document.getElementById('lookup-company'), { types: ['establishment'] });
 
   // Avoid paying for data that you don't need by restricting the set of
   // place fields that are returned to just the address components.
-  autocompleteReport.setFields('address_components');
+  // autocompleteReport.setFields('address_components');
   autocompleteLookup.setFields('address_components');
 
   // When the user selects an address from the drop-down, populate the
   // address fields in the form.
-  autocompleteReport.addListener('place_changed', getCompanyReportedName);
+  // autocompleteReport.addListener('place_changed', getCompanyReportedName);
   autocompleteLookup.addListener('place_changed', getCompanyLookupName);
 }
 

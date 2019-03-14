@@ -115,7 +115,11 @@ app.get("/",function(req,res){
               });
             // res.json({
             //   data: data
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 274c793be5b2b8d0eb5151dd8e70fa594c9325e7
           });
         });
       }
@@ -127,7 +131,11 @@ app.get("/",function(req,res){
       where: {
         id: req.params.id
       },
+<<<<<<< HEAD
       include:
+=======
+      include: 
+>>>>>>> 274c793be5b2b8d0eb5151dd8e70fa594c9325e7
         {
           model: db.ghostedCount,
           attributes: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'count']],
@@ -160,6 +168,10 @@ app.get("/",function(req,res){
     }).then(function (data) {
       console.log(data)
 
+<<<<<<< HEAD
+=======
+      // Render needs to be used here for handlebars
+>>>>>>> 274c793be5b2b8d0eb5151dd8e70fa594c9325e7
       res.json(data);
     });
   });
@@ -197,7 +209,11 @@ app.get("/",function(req,res){
     }).then(function (data) {
       console.log(data)
 
+<<<<<<< HEAD
 
+=======
+      // Render needs to be used here for handlebars
+>>>>>>> 274c793be5b2b8d0eb5151dd8e70fa594c9325e7
       res.json(data);
     });
   });
@@ -230,6 +246,10 @@ app.get("/",function(req,res){
     }).then(function (data) {
       console.log(data)
 
+<<<<<<< HEAD
+=======
+      // Render needs to be used here for handlebars
+>>>>>>> 274c793be5b2b8d0eb5151dd8e70fa594c9325e7
       res.json(data);
     });
   });
