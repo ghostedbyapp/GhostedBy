@@ -5,6 +5,11 @@ var db = require("../models");
 
 module.exports = function (app) {
 
+
+app.get("/",function(req,res){
+  // Collect top 5 companies
+});
+
   // Look up company
   app.post("/api/lookup", function (req, res) {
     db.ghostedCompany.findAll({
@@ -122,7 +127,7 @@ module.exports = function (app) {
       where: {
         id: req.params.id
       },
-      include: 
+      include:
         {
           model: db.ghostedCount,
           attributes: [[sequelize.fn('sum', sequelize.col('ghosted_count')), 'count']],
@@ -156,7 +161,7 @@ module.exports = function (app) {
     }).then(function (data) {
       console.log(data)
 
-      // Render needs to be used here for handlebars
+
       res.json(data);
     });
   });
@@ -192,7 +197,9 @@ module.exports = function (app) {
       limit: 10
 
     }).then(function (data) {
-      // Render needs to be used here for handlebars
+
+      console.log(data)
+
       res.json(data);
     });
   });
@@ -223,7 +230,9 @@ module.exports = function (app) {
       limit: 10
 
     }).then(function (data) {
-      // Render needs to be used here for handlebars
+
+      console.log(data)
+
       res.json(data);
     });
   });
