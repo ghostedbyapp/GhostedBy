@@ -5,11 +5,6 @@ var db = require("../models");
 
 module.exports = function (app) {
 
-
-app.get("/",function(req,res){
-  // Collect top 5 companies
-});
-
   // Look up company
   app.post("/api/lookup", function (req, res) {
     db.ghostedCompany.findAll({

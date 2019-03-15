@@ -10,6 +10,7 @@ var div = $("#trending-report");
 
 
 $(document).ready(function(){
+  // $("#lookup-btn").hide();
   $('.modal').modal({
     // Declaring a function to run before the modal opens
     onOpenStart: function() {
@@ -54,6 +55,7 @@ $(document).ready(function(){
   getLifetimeReport()
 });
 
+
 function getLifetimeReport() {
   $.ajax({
     method: "POST",
@@ -92,7 +94,7 @@ function displayReport(report) {
   for (var i in report) {
     var newCompany = $("<tr>");
     var companyName = $("<td>").text(report[i].company_name);
-    var count = $("<td>").text(report[i].ghostedCounts[0].count)
+    var count = $("<td class='countCol'>").text(report[i].ghostedCounts[0].count)
     newCompany.append(companyName);
     newCompany.append(count);
     $("#report-display").append(newCompany);
