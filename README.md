@@ -20,7 +20,7 @@ out or communicate.”
 # Deployed URL
 https://ghostedby.herokuapp.com/
 
-![GhostedBy](https://github.com/leronj23/Eat-Da-Burger/blob/master/screenshot/Eat-Da-Burger.JPG)
+![GhostedBy](https://github.com/leronj23/GhostedBy/blob/master/screenshot/ghosted-by.jpg)
 
 # Technology used
 * Javascript
