@@ -11,10 +11,15 @@ var div = $("#trending-report");
 
 $(document).ready(function(){
   // $("#lookup-btn").hide();
+  var company = $("#lookup-company").val()
   $('.modal').modal({
     // Declaring a function to run before the modal opens
     onOpenStart: function() {
-      $("#report-searched").show();
+      if (!company) {
+        $("#companyName").append("Please enter a company name.")
+        $("#report-searched").hide();
+      } else {
+        $("#report-searched").show();
       $.ajax({
         method: "POST",
         url: "/api/lookup",
@@ -22,7 +27,7 @@ $(document).ready(function(){
       })
       .then(function (data) {
         console.log(data);
-        var company = $("#lookup-company").val()
+      
         $("#companyName").append(company)
 
         // If the company is found in the database, we perform an ajax call to get the total number of times
@@ -44,6 +49,8 @@ $(document).ready(function(){
         //   reportCompany(companyResult)
         // })
       });
+      }
+      
     },
     onCloseEnd: function() {
       $("#companyName").empty();
