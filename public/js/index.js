@@ -7,15 +7,17 @@ var lookupButton = $("#lookup-btn");
 
 // Contents of top five end up in here
 var div = $("#trending-report");
-
+var company = $("#lookup-company").val()
 
 $(document).ready(function(){
-  // $("#lookup-btn").hide();
-  var company = $("#lookup-company").val()
+  // Click event to capture the searched company
+  lookupButton.click(function() {
+    company = $("#lookup-company").val()
+  });
   $('.modal').modal({
     // Declaring a function to run before the modal opens
     onOpenStart: function() {
-      if (company == "") {
+      if (company === "") {
         $("#companyName").append("Please enter a company name.")
         $("#report-searched").hide();
       } else {
@@ -56,13 +58,16 @@ $(document).ready(function(){
       $("#companyName").empty();
       $("#timesReported").empty();
       $("#lookup-company").val("");
+      companyResult = {};
     }
   });
 
   getLifetimeReport()
 });
 
-
+lookupButton.click(function() {
+  console.log(company)
+})
 function getLifetimeReport() {
   $.ajax({
     method: "POST",
